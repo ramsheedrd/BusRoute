@@ -1,0 +1,82 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+ $(document).ready(function() {
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+    function showPosition(position) {
+        $.get("/bus/set/location/",{"latitude":position.coords.latitude,"longitude":position.coords.longitude},function(result){
+            if (result.success == "new"){
+                location.reload()
+            }
+        })
+        
+        }
+    $("p.nearest-map").click(function(){
+        var latitude = $(this).children(".lt").text()
+        var longitude = $(this).children(".lg").text()
+        var w = "1080"
+        var h = "500"
+        var col = "col-md-12"
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        w = "320"
+        h = "190"
+        col = "col-md-2 col-md-offset-5"
+        }
+        $.dialog({
+            title: 'Map',
+            columnClass: col,
+            content: `<iframe src="https://maps.google.com/maps?q=${latitude}, ${longitude}&z=15&output=embed" width="${w}" height="${h}" frameborder="0" style="border:0"></iframe>`,
+        });
+    });
+    $('.search-data').click(function(){
+        $.dialog({
+            title: '',
+            content:"<b>"+$(this).text()+"</b>",
+        });
+    })
+
+
+ })
+</script>
+
+<style>
+    .hos-pol-container a, .hos-pol-container button {
+        line-height: 45px;
+    }
+</style>
+
+<div class="hos-pol-container">
+    <p class="search-data">Find Nearest</p><hr>
+
+                <a href="/bus/user/nearest/all/">all</a>
+                <a href="/bus/user/nearest/hospital/">hospitals</a>
+                <a href="/bus/user/nearest/police/">police station</a>
+                <a href="/bus/user/nearest/workshop/">workshops</a>
+            </div>
+            
+            <div class="results-search">
+                {% for location in locations %}
+                <div class="result-search-card mt-3">
+                    <div class="row">
+                        <div class="col-sm-3"><p class="search-label">.</p><p class="search-data">{{ location.name }}</p></div>
+                        <div class="col-sm-2">{% if location.hospital_category %}<p class="search-label">Type</p> <p class="search-data">{{ location.hospital_category | title}}</p> {% endif %}</div>
+                        <div class="col-sm-2"><p class="search-label">Address</p> <p class="search-data">{{ location.address }}</p> </div>
+                        <div class="col-sm-2 col-5"><p class="search-label">Phone</p> <p class="search-data">{{ location.phone }}</p> </div>
+                        <div class="col-sm-3 col-7 text-right">
+                            <p class="nearest-map">
+                                <span class="lt" hidden>{{ location.latitude }}</span>
+                                <span class="lg" hidden>{{ location.longitude }}</span>
+                                <span style="color: #245584; font-size: 24px;cursor: pointer;" data-inline="false" data-icon="ion:location" class="open-map iconify"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            {% endblock %}

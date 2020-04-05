@@ -1,0 +1,109 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+ $(document).ready(function() {
+
+    $('#no_passenger').change(function(){
+        var fare = parseInt($('#fare').text())
+        var no_passenger = parseInt($('#no_passenger').val())
+        if (no_passenger<=parseInt('{{ available }}')){
+            $('#book_btn').prop('disabled',false)
+            $('#total_fare').val(fare*no_passenger)
+
+
+        }
+        else{
+            $('#book_btn').prop('disabled',true)
+        }
+    })
+
+
+ })
+</script>
+
+<style>
+    .hos-pol-container a, .hos-pol-container button {
+        line-height: 45px;
+    }
+</style>
+
+<div class="hos-pol-container">
+    <p class="search-data">Seat Booking</p>
+    <hr>
+    <p class="text-light p-1" style="background-color: #245584;">Bus Details</p>
+    <div class="row">
+        <div class="col">
+            <p class="search-data">Bus</p>
+            <p class="booking-bus-detail">{{ trip.bus.name }}</p>
+
+            <p class="search-data">Service</p>
+            <p class="booking-bus-detail">{{ trip.start_place }} - {{ trip.end_place }}</p>
+        </div>
+        <div class="col">
+            <p class="search-data">Type</p>
+            <p class="booking-bus-detail">{{ trip.bus.get_ksrtc_category_display }}</p>
+
+            <p class="search-data">Seat Capacity</p>
+            <p class="booking-bus-detail">{{ trip.bus.capacity }}</p>
+        </div>
+    </div>
+    <br>
+    <p class="text-light p-1" style="background-color: #245584;">Booking Details</p>
+    <form>
+    <div class="row">
+        <div class="col">
+            <p class="search-data">From</p>
+            <p class="booking-bus-detail">{{ from.stop | title }} - {{ from.time }}</p>
+            
+        </div>
+        <div class="col">
+            <p class="search-data">To</p>
+            <p class="booking-bus-detail">{{ to.stop | title }} - {{ to.time }}</p>
+        </div>
+        <div class="col">
+            <p class="search-data">Date</p>
+            <p class="booking-bus-detail"><input type="date" name="book_date" id="" value='{% if booking_date %}{{ booking_date }}{% else %}{% now "Y-m-d" %}{% endif %}'></p>
+        </div>
+        <div class="col-12 col-sm-3">
+            <button type="submit" class="pt-1 pb-1 ">Check Seat Availability</button>
+        </div>
+
+    </div>
+</form>
+</div>
+            
+<div class="results-search">
+    {% if available >= 0 %}
+    <p class="h4 text-warning">{{ available }} Seats Available</p>
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <p class="search-data">Fare</p>
+            <p class="booking-bus-detail" id="fare">254</p>
+        </div>
+        <div class="col">
+            <p class="search-data">No of Passenger </p>
+            <p class="booking-bus-detail"><input type="number" min="0" name="no_passenger" id="no_passenger"></p>
+        </div>
+        <div class="col">
+            <p class="search-data">Total</p>
+            <p class="booking-bus-detail">₹<input type="text" name="total_fare" disabled style="border: none;" id="total_fare" value="0.00"></p>
+        </div>
+        <div class="col">
+            <p class="search-data">.</p>
+            <button type="submit" class="btn btn-success" id="book_btn">Book Now</button>
+        </div>
+    </div>
+    </form>
+    {% else %}
+    <p class="h4 text-danger">No Seats Available</p>
+    {% endif %} 
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | BusRoute Admin {% endblock %}
+
+{% block extrahead %}
+<script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+{% endblock %}
+
+{% block extrastyle %}
+    <style>
+        #branding h1, #branding h1 a:link, #branding h1 a:visited {
+            color: #3b6684;
+        }
+
+        #header a:link, #header a:visited {
+            color: #000;
+        }
+
+        #header {
+            width: auto;
+            height: 40px;
+            padding: 10px 40px;
+            background: #cce3f7;
+            /* background-color: #FAACA8;
+background-image: linear-gradient(270deg, #FAACA8 0%, #DDD6F3 100%); */
+
+
+            line-height: 40px;
+            color: #3b6684;
+            overflow: hidden;
+            box-shadow: 1px 3px 12px 5px #3b66841f;
+        }
+
+        .module h2, .module caption, .inline-group h2 {
+            margin: 0;
+            padding: 10px;
+            font-weight: 400;
+            font-size: 13px;
+            text-align: left;
+            background: #cce3f7;
+            color: #000;
+            /* border-radius: 15px; */
+            font-weight: 600;
+            /* border-bottom: 2px solid #3b6684; */
+            padding-left: 15px;
+            margin-bottom: 10px;
+        }
+        .module table {
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .module table td, .module table th {
+            border-radius: 10px;
+            box-shadow: -1px 5px 13px 0px #00000010;
+            padding: 10px;
+        }
+        input[type='checkbox']:after {
+            line-height: 1.3em;
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #f6fafd;
+            border: 2px solid #74a7cb;
+            color: #74a7cb;
+            border-radius: 7px;
+            margin-left: -3px;
+            margin-top: -1px;
+        }
+        input[type='checkbox']:checked:after {
+        content: '✔';
+        text-align: center;
+        }
+
+        div.breadcrumbs {
+    background: #3b6684;
+        }
+        a.section:link, a.section:visited {
+    color: #3b6684;
+    text-decoration: none;
+}
+#content-related {
+    background: #fff;
+    box-shadow: -1px 5px 13px 0px #00000010;
+}
+
+.grant-bus{
+    background-color: aquamarine;
+}
+        
+    </style>
+{% endblock %}
+    
+{% block branding %}
+<h1 id="site-name"><span class="iconify bus-ico slideInLeft animated" data-inline="false" data-icon="ps:bus-london" style="color: #3b6684; font-size: 30px;"></span>
+    <a class="heading-main-link" href="{% url 'admin:index' %}" style="color: #3b6684;">BusRoute Administration </a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

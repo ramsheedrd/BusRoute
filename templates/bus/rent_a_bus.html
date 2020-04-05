@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+ $(document).ready(function() {
+   
+    $('.search-data').click(function(){
+        $.dialog({
+            title: '',
+            content:"<b>"+$(this).text()+"</b>",
+        });
+    })
+
+
+ })
+</script>
+
+<div class="hos-pol-container">
+    <p class="search-data">Rent A Bus</p><hr>
+            </div>
+            
+            <div class="results-search">
+                {% for bus in buses %}
+                <div class="result-search-card mt-3">
+                    <div class="row">
+                        
+                        <div class="col-sm-3"><p class="search-label">Bus</p><b><p class="search-data">{{ bus.category | title }}</p></b></div>
+                        <div class="col-sm-2"><p class="search-label">Type</p> <p class="search-data"> {% if bus.ac %}A/C{% else %}Non A/C{% endif %}</p></div>
+                        <div class="col-sm-2"><p class="search-label">Capacity</p><p class="search-data">{{ bus.capacity }}</p></div>
+                        <div class="col-sm-3"><p class="search-label">Address</p> <p class="search-data">{{ bus.address | title }}</p> </div>
+                        <div class="col-sm-2 col-5"><p class="search-label">Phone</p> <p class="search-data">{{ bus.phone }}</p> </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            {% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $(".switch input").change(function(){
+            var trip_id=$(this).data("id")
+            var id = '{{ trips.0.bus.id }}';
+            $.get("/bus/owner/trip/status/"+id+"/"+trip_id+"/",{},function(result){})
+        })
+
+        $('.del-trip').click(function(){
+        var th = this
+        $.confirm({
+            title: 'Are you sure..?',
+            content: `this action is cannot be undone.`,
+            typeAnimated: true,
+            buttons: {
+                tryAgain: {
+                    text: 'Delete',
+                    btnClass: 'btn-info',
+                    action: function(){
+                        var id = $(th).data("id")
+                        var bus_id = '{{ trips.0.bus.id }}';
+                        window.location = "/bus/owner/trip/delete/"+bus_id+"/"+id+"/"
+
+                    }
+                },
+                close: function () {
+                }
+            }
+        })
+        });
+
+    });
+</script>
+
+<div class="hos-pol-container">
+    <p class="form-heading-register">Manage Your Routes</p><hr>
+    {% for i in trips %}
+    <div class="owner-trip-card">
+        <p class="basic-p-owner" >{{ i.start_time }} - {{ i.end_time }}</p>
+        <p class="basic-p-owner" style="font-size: medium;">{{ i.start_place }} - {{ i.end_place }}</p>
+        <div style="max-height: 350px; overflow-y: scroll;overflow-x: hidden;">
+        <table>
+            <tr class="color-tr">
+                <th>Stop</th>
+                <th>Time</th>
+            </tr>
+            {% for routes in i.routemodel_set.all %}
+            <tr {% if forloop.counter|divisibleby:2 %}class="color-tr"{% endif %}>
+                <td> {{ routes.stop }} </td>
+                <td> {{ routes.time | upper }}</td>
+            </tr> 
+            {% endfor %}
+        </table>
+        </div>
+        <hr>
+        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+        <div class="d-inline-block" >
+        <button class="del-trip" data-id="{{i.id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+        </div>
+        <div class="text-right d-inline-block" style="vertical-align: -webkit-baseline-middle;">
+        <label class="switch"><input data-id="{{ i.id }}" type="checkbox" {% if i.active %} checked{% endif %}/>    <div></div>
+        </label></div>
+        </div>
+        </div>
+
+    {% endfor %}
+    <button class="owner-bus-card-add" onclick="window.location='/bus/owner/routes/add/{{ bus_id }}/'">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+    $(document).ready(function() {
+
+    })
+</script>
+
+<style>
+    .hos-pol-container a, .hos-pol-container button {
+        line-height: 45px;
+    }
+</style>
+
+<div class="hos-pol-container">
+    <p class="search-data">My Trips</p><hr>
+                {% for each in booked %}
+                <div class="owner-trip-card">
+                    <p class="basic-p-owner" >{{ each.booking.start.stop }} &#8594; {{ each.booking.end.stop }}</p>
+                    <p class="basic-p-owner" style="font-size: medium;">{{ each.booking.start.time }} - {{ each.booking.end.time }}</p>
+
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <p class="search-data">Date</p>
+                        <p class="basic-p-owner" style="font-size: medium;">{{ each.booking.booking_date }}</p>
+                    </div>
+
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <p class="search-data">Bus</p>
+                        <p class="basic-p-owner" style="font-size: medium;">{{ each.booking.trip.bus }}</p>
+                    </div>
+
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <p class="search-data">Fare</p>
+                        <p class="basic-p-owner" style="font-size: medium;">{{ each.booking.fare }}</p>
+                    </div>
+
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <p class="search-data">Number of Passengers</p>
+                        <p class="basic-p-owner" style="font-size: medium;">{{ each.count }}</p>
+                    </div>
+                    
+                    <hr>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <p class="search-data">Total</p>
+                        <p class="basic-p-owner" style="font-size: medium;">{{ each.total }}</p>
+                    </div>
+                    </div>
+            
+                {% endfor %}
+
+        
+            {% endblock %}

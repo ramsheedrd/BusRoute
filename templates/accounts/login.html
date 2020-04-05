@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+            <div class="login-card mt-4 pt-5 pl-4 pr-4 pl-sm-5">
+                <div>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                    <p class="form-heading-login">Login</p>
+                    <div class="form-group-login">
+                        <label for="email" class="form-label-bus">Email</label>
+                        <input type="email" name="email" class="form-control-bus" id="email" placeholder="johnsmith">
+                    </div>
+                    <div class="form-group-login">
+                        <label for="password" class="form-label-bus">Password</label>
+                        <input type="password" name="password" class="form-control-bus" id="password" placeholder="*********">
+                        <p class="errorlist">{{ login_error_msg }}</p>
+                    </div>
+                    <div class="mt-4">
+                        <span class="not-a-user">Not a User.?  <a href="/accounts/user/register/">Register Here</a></span>
+                        <input type="submit" value="sign in" class="form-control-bus mt-2">
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="description-card-content">
+                <div class="row m-sm-5 m-3">
+                    <div class="col-sm-5 col-0"></div>
+                    <div class="col-sm-7 col-12">
+                        <p class="basic-p-head mt-4">
+                            Fast & Easy Way To Track Bus
+                        </p>
+                        <p class="basic-p-para">
+                            BusRoute is a website that tracks buses and tells you what time your bus will reach your stop. So now, you never have to wait at a bus stop ever again.
+                        </p>
+                        <p class="basic-p-owner mt-5">
+                            Are you a bus owner..?
+                        </p>
+                        <span class="basic-p-owner-acc">heres your</span> <a href="/accounts/owner/login/">login</a><span class="basic-p-owner-acc"> and</span> <a href="/accounts/owner/register/">register.</a>    
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

@@ -1,0 +1,752 @@
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #245584; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover  {
+    background: #427fb8; 
+  }
+
+  body
+  { 
+      overflow-x: hidden;
+  }
+
+  .more-menu {
+      display: none;
+  }
+
+
+
+        .error-input {
+            border-color: red !important;
+        }
+        .basic-p-head{
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: 900;
+            font-size: 44px;
+            text-transform: capitalize;
+            color: #245584;
+            width: 400px;
+        }
+
+        .basic-p-para {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 13px; 
+            color: #245584;
+            width: 400px;
+
+
+        }
+
+        .basic-p-owner{
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            text-transform: capitalize;
+            color: #245584;
+        }
+
+        .basic-p-owner-acc {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            color: rgba(36, 85, 132, 0.78);
+        }
+
+        .basic-p-owner-acc a{
+            font-weight: 800;
+            text-decoration-line: underline;
+            color: rgba(36, 85, 132,1 );
+        }
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-ul {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.nav-ul li {
+    display: inline-block;
+    margin: 0px 5px 0px 5px;
+}
+
+.nav-ul li a {
+    color: #245584;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: Poppins;
+    font-style: normal;
+}
+
+.nav-logo {
+    display: inline-block;
+}
+
+
+.heading-main {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: #245584;
+}
+
+.heading-main-link {
+    text-decoration: none;
+}
+
+.bus-ico {
+    height: 25px;
+}
+
+.color-b {
+   color: #245584; 
+}
+
+.login-card {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    background: linear-gradient(176.29deg, #048BD7 0.31%, #07C4FF 61.35%);
+    box-shadow: 10px 18px 40px rgba(81, 170, 234, 0.35);
+    border-radius: 14px;
+    z-index: 4;
+}
+
+.form-heading-login {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: #FFFFFF;
+    }
+
+.form-group-reg {
+    display: inline-block; 
+    margin-right: 20px;
+}
+
+
+.form-label-bus,
+.form-label-bus-reg  {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 79.4%;
+    text-transform: uppercase;
+    display: block;
+    color: #FFFFFF;
+    margin: 40px 0px 20px 0px;
+    }
+.form-label-bus-reg{
+    color: #245584;
+}
+
+
+.form-control-bus,.form-control-bus-reg {
+    border: 1px solid rgba(255, 255, 255, 0.97);
+    box-sizing: border-box;
+    border-radius: 33px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    width: 300px;
+    padding: 10px 20px;
+    outline: none;
+    color: rgba(255, 255, 255,1);
+
+}
+.form-control-bus-reg{
+    color: #245584;
+    border: 1px solid rgba(36, 85, 132, 0.97);
+
+}
+
+.form-control-bus::placeholder,.form-control-bus-reg::placeholder{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.34);
+    }
+
+.form-control-bus-reg::placeholder{
+    color: rgba(36, 85, 132, 0.34);
+}
+
+.form-control-bus[type="submit"]{
+    background: #01D28E;
+    box-shadow: 0px 18px 48px rgba(1, 210, 142, 0.5);
+    border: none;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    }
+
+.not-a-user {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: capitalize;
+    color: rgba(255, 255, 255, 0.69);
+    letter-spacing: 1px;
+}
+
+.not-a-user a {
+    color: rgba(255, 255, 255,1);
+}
+
+
+.description-card-content {
+    position: absolute;
+    width: 70%;
+    height: 500px;
+    left: 15%;
+    top: 150px;
+    z-index: 3;
+    background: linear-gradient(90deg, #F0F2FA 0%, #E9FFFB 100%);
+    box-shadow: 0px 18px 48px rgba(10, 34, 57, 0.11);
+    border-radius: 14px;
+}
+.footer-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #245584;
+}
+
+.share-icons {
+    font-size: 20px;
+    color: #245584;
+    
+}
+
+
+/* register page */
+
+.register-card {
+width: 750px;
+height: 550px;
+margin: 0 auto;
+background: #FFFFFF;
+box-shadow: 10px 18px 40px rgba(1, 210, 142, 0.35);
+border-radius: 14px;
+}
+
+.form-heading-register {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: #245584;
+}
+
+.errorlist {
+    position: absolute;
+    color: red;
+    font-size: 14px;
+    margin-top: 3px;
+}
+
+/* search */
+
+.search-card {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background: linear-gradient(176.29deg, #048BD7 0.31%, #07C4FF 61.35%);
+    box-shadow: 10px 18px 40px rgba(81, 170, 234, 0.35);
+    border-radius: 14px;
+    z-index: 4;
+}
+
+.search-card .form-group-login {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.search-card .form-group-login .form-control-bus {
+    width: 250px;
+ 
+}
+/* 
+.form-square-group-search a{
+    display: inline-block;
+    font-size: 13px;
+    border: 1px solid #FFFFFF;
+    padding: 5px 15px;
+    margin: 0;
+    color: #FFFFFF;
+} */
+
+.form-square-group-search {
+    width: 250px;
+}
+
+.result-search-card {
+    background: linear-gradient(90deg, #F0F2FA 0%, #E9FFFB 100%);
+    box-shadow: 0px 18px 48px rgba(10, 34, 57, 0.11);
+    border-radius: 14px;
+    width: 100%;
+    height: 80px;
+    padding: 20px 30px;
+}
+
+.search-label {
+    margin: 0;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: #245584;
+}
+
+.search-data {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #245584;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-detail-a,.search-book-a {
+    border: 2px solid #245584;
+    box-sizing: border-box;
+    border-radius: 16px;
+    font-size: 13px;
+    color: #245584;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    padding: 5px 10px;
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+    outline: none;
+}
+
+.hos-pol-container{
+    margin: 50px 0px;
+}
+
+.hos-pol-container a , .hos-pol-container button{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    background: #245584;
+    box-shadow: 0px 18px 48px #245584;
+    border-radius: 33px;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+}
+
+.hos-pol-container a:hover , .hos-pol-container button:hover {
+    transition: all 200ms ease-in-out;
+    transform: scale(0.95)
+}
+
+.nearest-map {
+    padding: 5px 10px;  
+    border: 2px solid #2455845c;
+    box-sizing: border-box;
+    border-radius: 16px;
+    display: inline-block;
+}
+
+.nearest-map span {
+    color: #245584;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+.bus-login-card {
+    width:400px;
+    height: 450px;
+}
+
+.bus-alert{
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+    z-index: 10;
+}
+
+.bus-alert-success {
+    background: #01D28E;
+    color: #FFFFFF;
+    box-shadow: 0px 18px 48px rgba(1, 210, 142, 0.5);
+}
+
+.bus-alert-error {
+    background: #dc4942;
+    color: #FFFFFF;
+    box-shadow: 0px 18px 48px rgba(201, 61, 61, 0.5);
+}
+
+.bus-alert-info {
+    background: #245584;
+    color: #FFFFFF;
+    box-shadow: 0px 18px 48px rgba(40, 86, 142, 0.5);;
+}
+.form-control-route-time{
+    width:140px;
+    font-size: 16px;
+}
+
+.form-control-route-place{
+    font-size: 16px;
+}
+
+.del-route,.add-after {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: #245584 !important;
+    font-size: x-large !important;
+    opacity: 0.5;
+} 
+.del-route:hover,.add-after:hover{
+    opacity: 1;
+}
+
+.place-time-container {
+    display: block;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.vertical_dotted_line
+{
+    border-left: 2px dashed #245584;
+    height: 25px;
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+} 
+
+.place-time-container div input[type='checkbox']{
+    visibility: hidden;
+}
+
+/* .form-square-group-search label, .form-square-group-search input {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+} */
+
+.form-square-group-search input[type="radio"] {
+    opacity:0.011;
+    z-index:100;
+    display: none;
+}
+
+.form-square-group-search input[type="radio"]:checked + label {
+    background:#245584;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.form-square-group-search label {
+    display: inline-block;
+    font-size: 13px;
+    border: 1px solid #FFFFFF;
+    padding: 5px 15px;
+    margin: 0;
+    color: #FFFFFF;
+     cursor:pointer;
+    z-index:90;
+}
+
+.form-square-group-search label:hover {
+     background:#DDD;
+}
+
+.time-search {
+    width: 150px !important;
+}
+
+.owner-bus-card {
+    background: linear-gradient(90deg, #F0F2FA 0%, #E9FFFB 100%);
+    box-shadow: 0px 18px 48px rgba(10, 34, 57, 0.11);
+    border-radius: 14px;
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+    padding: 30px 30px;
+    margin: 10px 10px;
+    vertical-align: top;
+}
+
+.owner-bus-card a,.owner-trip-card a{
+    box-shadow: 2px 2px 5px rgba(10, 34, 57, 0.5) !important;
+}
+
+.owner-bus-card-add {
+    background: linear-gradient(90deg, #F0F2FA 0%, #E9FFFB 100%);
+    box-shadow: 0px 18px 48px rgba(10, 34, 57, 0.11);
+    border-radius: 14px;
+    width: 300px;
+    height: 250px;
+    font-size: 75px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    display: inline-block;
+    text-align: center;
+    padding: 30px 30px;
+    margin: 10px 10px;    
+}
+
+.owner-trip-card {
+    background: linear-gradient(90deg, #F0F2FA 0%, #E9FFFB 100%);
+    box-shadow: 0px 18px 48px rgba(10, 34, 57, 0.11);
+    border-radius: 14px;
+    width: 330px;
+    display: inline-block;
+    padding: 30px 30px;
+    margin: 10px 10px;
+    vertical-align: top;
+}
+
+.owner-trip-card table td, .owner-trip-card table th{
+    padding: 5px 30px 5px 15px;
+}
+
+.color-tr td, .color-tr th{
+    background-color: #2c62940e;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.color-tr td:first-child, .color-tr th:first-child{
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+table {
+    max-height: 500px;
+    overflow: scroll;
+}
+
+.increase-height {
+    height: 650px;
+}
+
+.booking-bus-detail {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    color: #245584;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.booking-bus-detail input[disabled]{
+    background-color: white;
+}
+
+/** Switch
+ -------------------------------------*/
+
+ .switch input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  /**
+   * 1. Adjust this to size
+   */
+  
+  .switch {
+    display: inline-block;
+    font-size: 20px; /* 1 */
+    height: 1em;
+    width: 2em;
+    background:#24558421;
+    border-radius: 1em;
+  }
+  
+  .switch div {
+    height: 1em;
+    width: 1em;
+    border-radius: 1em;
+    background: #FFF; 
+    /* #3ed83c #24558421 */
+    box-shadow: 0 0.1em 0.3em rgba(0,0,0,0.3);
+    -webkit-transition: all 300ms;
+       -moz-transition: all 300ms;
+            transition: all 300ms;
+  }
+
+  .switch input:checked + div {
+    -webkit-transform: translate3d(100%, 0, 0);
+       -moz-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+            background: #3ed83c;
+  }
+
+   .greyed {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+   }
+
+@media only screen and (max-width: 600px) {
+    
+    .login-card {
+        position: relative;
+        width: 100%;
+        height: 500px;
+    }
+
+    .description-card-content {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        left: 0px;
+        top: 0px;
+    }
+
+    .basic-p-head{
+        font-size: 36px;
+        width: 300px;
+    }
+    
+    .basic-p-para {
+        font-size: 13px; 
+        width: 300px;
+    
+    
+    }
+    .footer-text {
+        width: 100%;
+        text-align: center;
+    }
+    .share-icons {
+        width: 100%;
+        text-align: center;
+    }
+    .form-control-bus,.form-control-bus-reg {
+        width: 100%;
+    
+    }
+
+    .form-group-reg {
+        display: block;
+        margin-right: 0;
+    }
+
+    .register-card {
+        width: 100%;
+        height: 900px;
+        margin: 0 auto;
+        background: #FFFFFF;
+        box-shadow: 10px 18px 40px rgba(1, 210, 142, 0.35);
+        border-radius: 14px;
+        }
+
+    .search-card {
+        height: 650px;
+    }
+
+    .result-search-card {
+        width: 100%;
+        height: 250px;
+        padding: 20px 30px;
+    }
+
+    .search-detail-a {
+        width: 100%;
+        text-align: center;
+        padding: 5px 10px;
+        z-index: 10;
+    }
+
+    .search-card .form-group-login{
+        width: 100%;
+    }
+
+    .search-card .form-group-login .form-control-bus{
+        width: 100%;
+    }
+
+    .bus-login-card {
+        height: 450px;
+    }
+
+    .nav-ul {
+        display: none;
+        position: absolute;
+        background-color: #FFFFFF;
+        z-index: 15;
+        width: 200px;
+        margin-top: 40px;
+        box-shadow: 10px 18px 40px rgba(0, 0, 0, 0.35);
+        border-radius: 14px;
+        right:5%;
+        padding-left: 0;
+
+    }
+
+    .nav-ul li {
+        display: block;
+        padding: 10px 20px;
+    }
+
+    .nav-ul li a {
+        font-size: 20px;
+    }
+
+    .more-menu {
+        display: inline;
+    }
+    
+    .emer-results {
+        height: 150px !important;
+    }
+
+
+
+
+
+
+}

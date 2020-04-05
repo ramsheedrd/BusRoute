@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    td,th {
+        padding: 10px 30px 10px 15px;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        var prevTime;
+        var chk="checked";
+        $(document).on("input click",'.inputPlace', function() {
+            var val = this.value;
+            if(val === "" || val.length < 2) return;
+            $.get("/bus/owner/places/",{"startsWith":val},function(result){
+                    if(result.length){
+                        s=""
+                        for(i of result){
+                            s=s+"<option data-value="+i.pk+" value="+i.fields.place_name+">";
+                        }
+                        $('#listPlace').html(s);
+    
+                    }
+                });
+        });
+
+        $(".search-detail-a").click(function(){
+            var th = this
+            $.confirm({
+                title: '',
+                content: function () {
+                    var self = this;
+                    return $.ajax({
+                        url: '/bus/owner/routes/ajax/get/'+$(th).data('id')+'/',
+                        dataType: 'json',
+                        method: 'get'
+                    }).done(function (response) {
+                        self.setContent('<b>Bus Name: ' + response[0].bus+"</b>");
+                        self.setContentAppend('<br>Plate Number: ' + response[0].plate)
+                        self.setContentAppend('<br>Owner: ' + response[0].owner)
+                        var s = '<hr><table><tr><th>Stop</th><th>Time</th></tr>'
+                        for(route of response){
+                            s=s+`<tr>
+                                    <td>${route.stop}</td>
+                                    <td>${route.time}</td>
+                                </tr>`
+                        }
+                        s=s+'</table>'
+                        self.setContentAppend(s)
+                        // self.setTitle(response.bus);
+                    }).fail(function(){
+                        self.setContent('Something went wrong.');
+                    });
+                }
+            });
+    
+        })
+    
+    });
+</script>
+
+            <div class="search-card mt-4 pt-5 pl-4 pr-4 pl-sm-5">
+                <div>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                    <p class="form-heading-login">Find Bus</p>
+                    <div class="form-group-login">
+                        <label for="from" class="form-label-bus">From</label>
+                        <input type="text" name="from" list="listPlace" class="form-control-bus inputPlace" id="from" placeholder="departure" required>
+                    </div>
+                    <div class="form-group-login">
+                        <label for="to" class="form-label-bus">To</label>
+                        <input type="text" name="to" list="listPlace" class="form-control-bus inputPlace" id="to" placeholder="destination" required>
+                    </div>
+                    <div class="form-group-login mt-sm-5 mt-4">
+                        <div class="form-square-group-search">
+                            <input type="radio" id="category_all" name="category" value="all" />
+                            <label for="category_all">All</label>
+                            <input type="radio" id="category_private" name="category" value="private"/>
+                            <label for="category_private">Private</label>
+                            <input type="radio" id="category_ksrtc" name="category" value="ksrtc"/>
+                            <label for="category_ksrtc">KSRTC</label>
+                        </div>
+                    </div>
+                    <div class="form-group-login col-sm-2">
+                        <input type="submit" value="search" class="form-control-bus col-sm-10 mt-2">
+                    </div>
+                    <div class="form-group-login mt-sm-5 mt-4">
+                            <label for="to" class="form-label-bus" style="margin-top: 0px;">Time (<i>optional</i>)</label>
+                            <input type="time" name="start_time" class="form-control-bus time-search">
+                            <span class="text-white"> To </span> 
+                            <input type="time" name="end_time" class="form-control-bus time-search">
+                    </div>
+
+                </form>
+                </div>
+                <datalist id="listPlace">
+   
+                </datalist>
+            </div>
+            {% for i in matched %}
+            <div class="result-search-card mt-3">
+                <div class="row">
+                    <div class="col-sm-3 col-12 order-sm-1 order-1"><p class="search-label">.</p><p class="search-data">{{ i.bus.name }}</p></div>
+                    <div class="col-sm-2 col-6 order-sm-2 order-3"><p class="search-label">Type</p> <p class="search-data text-capitalize">{{ i.bus.category }}</p> </div>
+                    <div class="col-sm-2 col-6 order-sm-3 order-2"><p class="search-label">Service</p> <p class="search-data">{{ i.trip.start_place | title }} - {{ i.trip.end_place | title }}</p> </div>
+                    <div class="col-sm-2 col-6 order-sm-4 order-4"><p class="search-label">Departure</p> <p class="search-data text-uppercase">{{ i.from.time }}</p> </div>
+                    {% if i.bus.booking %}
+                    <div class="col-sm-1 col-6 order-sm-5 order-5"><p class="search-label">Arrival</p> <p class="search-data text-uppercase">{{ i.to.time}}</p> </div>
+                    <div class="col-sm-1 col-12 order-sm-6 order-6 text-right"><button onclick="window.location = '/bus/user/booking/{{ i.trip.id }}/{{ i.from.id }}/{{ i.to.id }}/'" class="search-book-a">BookNow</button></div>
+                    {% else %}
+                    <div class="col-sm-2 col-6 order-sm-5 order-5"><p class="search-label">Arrival</p> <p class="search-data text-uppercase">{{ i.to.time}}</p> </div>
+                    {% endif %}
+                    <div class="col-sm-1 col-12 order-sm-6 order-6 text-right"><button data-id="{{ i.trip.id }}" class="search-detail-a">Details</button></div>
+                </div>
+            </div>
+            {% endfor %}
+        
+{% endblock %}

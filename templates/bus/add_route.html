@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="hos-pol-container">
+<script>
+$(document).ready(function(){
+    var prevTime;
+    var chk="checked";
+    $(document).on("input click",'.inputPlace', function() {
+        var val = this.value;
+
+        if(val === "" || val.length < 2) return;
+        $.get("/bus/owner/places/",{"startsWith":val},function(result){
+                if(result.length){
+                    s=""
+                    for(i of result){
+                        s=s+"<option data-value="+i.pk+" value="+i.fields.place_name+">";
+                    }
+                    $('#listPlace').html(s);
+
+                }
+            });
+    });
+
+    $('#last').click(function(){
+        var th = this
+        $.confirm({
+            title: 'Last Stop..? What is this..?',
+            content: `this will create all your stops in reverse order inorder to add return trip. 
+            so you should only click this button when you added the last stop.  `,
+            typeAnimated: true,
+            buttons: {
+                tryAgain: {
+                    text: 'Confirm',
+                    btnClass: 'btn-info',
+                    action: function(){
+
+                        chk = "";
+                        var c = [];
+                        ul = $('.place-time-container').children()
+
+                        ul.each(function(i,li){
+                            var pl =$(li).children(".inputPlace").val()
+                            var ti =$(li).children(".inputTime").val()
+                            // console.log(pl,ti)
+                            c.push({"place":pl,"time":ti})
+                        })
+
+                        c.reverse()
+                        for (i of c){
+                            var tmp = '<div><input list="listPlace" class="inputPlace form-control-bus-reg form-control-route-place" value="'+i.place+'"> <input type="time" class="inputTime form-control-bus-reg form-control-route-time" ><button class="del-route"><i class="fa fa-trash-o" aria-hidden="true"></i></button><button class="add-after"><i class="fa fa-plus" aria-hidden="true"></i></button><input type="checkbox" name="vehicle" value="Airplane" '+chk+'><div class="vertical_dotted_line"></div></div>'
+                            $('.place-time-container').append(tmp)
+                        }
+                        $(th).hide()
+
+                    }
+                },
+                close: function () {
+                }
+            }
+        });
+
+
+    })
+
+    $(document).on("click",'.del-route', function() {
+        $(this).parent().remove()
+    })
+
+    $(document).on("click",'.add-after', function() {
+        // var ltime = $(".place-time-csontainer div input[type='time']").last().val()
+        var lt = $(this).parent()[0]
+        var ch = $(lt).find("input[type='checkbox']").is(":checked")
+        ltime = $(lt).find(".inputTime").val()
+        if ( ch == true){
+            chk = "checked"
+        }
+        else if(ch == false){
+            chk = ""
+        }
+
+        if (ltime == undefined){
+            ltime = "00:00"
+        }
+        var tmp = '<div><input list="listPlace" class="inputPlace form-control-bus-reg form-control-route-place"> <input type="time" class="inputTime form-control-bus-reg form-control-route-time" value="'+ltime+'"><button class="del-route"><i class="fa fa-trash-o" aria-hidden="true"></i></button><button class="add-after"><i class="fa fa-plus" aria-hidden="true"></i></button>      <input type="checkbox" name="vehicle" value="Airplane" '+chk+'><div class="vertical_dotted_line"></div></div>'
+        $(this).parent().after(tmp)
+    })
+
+    $("#save").click(function(){
+        var trip = []
+        var filled = true
+        var trip_div = $(".place-time-container").children()
+        trip_div.each(function(i,di){
+            var pl =$(di).children(".inputPlace").val()
+            var ti =$(di).children(".inputTime").val()
+            var checked =$(di).children("input[type='checkbox']").is(":checked")
+            if (pl=="" || ti=="" ){
+                filled = false
+            }
+            else {
+                trip.push({"place":pl,"time":ti,"forward":checked})
+            }
+        })
+        if (filled == false){
+            $.alert({
+                title: 'Something not right..!',
+                content: 'Please fill all the fields',
+                type: 'orange',
+                closeIcon: true,
+                typeAnimated: true,
+            });
+        }
+        else {
+            $.ajax({
+           url: "/bus/owner/routes/save/{{ bus.id }}/?parameters="+JSON.stringify(trip),
+           type: "GET",
+           contentType: "application/json",
+           dataType: "json",
+           success: function(result) {
+                window.location="/bus/owner/routes/{{ bus.id }}/"
+            },
+            error:function(result) {
+                window.location="/bus/owner/routes/{{ bus.id }}/"
+            }
+            });  
+        }
+        console.log(trip)
+    })
+});
+</script>
+<p class="form-heading-register">New Trip for bus {{ bus.name }}</p>
+<div class="place-time-container">
+ 
+    <div>
+        <input list="listPlace" class="inputPlace form-control-bus-reg form-control-route-place"> <input class="inputTime form-control-bus-reg form-control-route-time" type="time"><button class="add-after"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <input type="checkbox" name="vehicle" value="Airplane" checked>
+        <div class="vertical_dotted_line"></div>
+    </div>
+</div>
+<!-- <button id="add">add</button> --> 
+<div style="width:600px;margin: 0 auto;margin-top: 20px;">
+<button id="last">last stop</button><button id="save" style="margin-left: 10px;box-shadow: 10px 18px 40px rgba(1, 210, 142, 0.35);background-color:rgba(1, 210, 142);">save trip</button>
+</div>
+<datalist id="listPlace">
+   
+</datalist>
+ 
+</div>
+
+{% endblock %}

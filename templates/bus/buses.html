@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script type="text/javascript">
+    // $(window).on('load',function(){
+    //     $('#myModal').modal('show');
+    // });
+    $(document).ready(function() {
+        $('#ksrtc_category_group').hide();
+        $('#ksrtc_booking_group').hide();
+        $(".form-rate-group").hide();
+
+
+        $("#id_category").change(function(){
+            if ($(this).val() == "ksrtc"){
+                $('#ksrtc_category_group').show();
+                $('#ksrtc_booking_group').show();
+                $('#ksrtc_category_group select').prop('required',true);
+            }
+            else {
+                $('#ksrtc_category_group').hide();
+                $('#ksrtc_booking_group').hide();
+                $('#ksrtc_category_group select').prop('required',false);
+                $(".form-rate-group").hide();
+                $("#id_booking").prop('checked',false);
+                $(".register-card").removeClass('increase-height')
+
+
+            }
+        })
+
+        $("#id_booking").change(function(){
+            if($(this).prop("checked") == true){
+                $(".form-rate-group").show();  
+                $(".register-card").addClass('increase-height')
+                $(".form-rate-group input").prop('required',true);
+            }
+            else if($(this).prop("checked") == false){
+                $(".form-rate-group").hide();  
+                $(".register-card").removeClass('increase-height')
+                $(".form-rate-group input").prop('required',false);
+
+            }
+        })
+
+
+        $(".switch input").change(function(){
+            var id=$(this).data("id")
+            $.get("/bus/owner/bus/status/"+id+"/",{},function(result){})
+        })
+        
+        $('.del-bus').click(function(){
+        var th = this
+        $.confirm({
+            title: 'Are you sure..?',
+            content: `this action is cannot be undone.`,
+            typeAnimated: true,
+            buttons: {
+                tryAgain: {
+                    text: 'Delete',
+                    btnClass: 'btn-info',
+                    action: function(){
+                        var id = $(th).data("id")
+                        window.location = "/bus/owner/bus/delete/"+id+"/"
+
+                    }
+                },
+                close: function () {
+                }
+            }
+        });
+
+
+        })
+    });
+</script>
+<div class="hos-pol-container">
+    <p class="form-heading-register">Manage Your Buses</p><hr>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                </div></div>
+
+                <div class="register-card mt-4 pt-5 pl-4 pr-4 pl-sm-5">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                        <p class="form-heading-register">Add New Bus</p>
+                        <div class="form-group-reg">
+                            <label for="name" class="form-label-bus-reg">Name</label>
+                            <input type="text" name="name" value="{% if form.name.value %}{{ form.name.value }}{% endif %}" class="form-control-bus-reg {% if form.name.errors %} error-input {% endif %}" id="name" placeholder="">
+                            {{ form.name.errors }}
+                        </div>
+                        <div class="form-group-reg">
+                            <label for="reg_no" class="form-label-bus-reg">Vehicle Reg No.</label>
+                            <input type="text" name="reg_no" value="{% if form.reg_no.value %}{{ form.reg_no.value }}{% endif %}" class="form-control-bus-reg {% if form.reg_no.errors %} error-input {% endif %}" id="reg_no" placeholder="KL 10 A555">
+                            {{ form.reg_no.errors }}
+                        </div>
+                        <div class="form-group-reg">
+                            <label for="capacity" class="form-label-bus-reg">Seat Capacity</label>
+                            <input type="text" name="capacity" value="{% if form.capacity.value %}{{ form.capacity.value }}{% endif %}" class="form-control-bus-reg {% if form.capacity.errors %} error-input {% endif %}" id="capacity" placeholder="0">
+                            {{ form.capacity.errors }}
+                        </div>
+                        <div class="form-group-reg">
+                            <label for="category" class="form-label-bus-reg">Category</label>
+                            {{ form.category }}
+                            {{ form.category.errors }}
+                        </div>
+                        <div class="form-group-reg" id="ksrtc_category_group">
+                            <label for="ksrtc_category" class="form-label-bus-reg">ksrtc category</label>
+                            {{ form.ksrtc_category }}
+                            {{ form.ksrtc_category.errors }}
+                        </div>
+                        <div class="form-group-reg" id="ksrtc_booking_group">
+                            <label for="booking" class="form-label-bus-reg">allow booking</label>
+                            {{ form.booking }}
+                            {{ form.booking.errors }}
+                        </div>
+                        <div class="form-group-reg form-rate-group">
+                            <label for="minimum_rate" class="form-label-bus-reg">Minimum Rate</label>
+                            <input type="text" name="minimum_rate" value="{% if form.minimum_rate.value %}{{ form.minimum_rate.value }}{% endif %}" class="form-control-bus-reg {% if form.minimum_rate.errors %} error-input {% endif %}" id="minimum_rate" placeholder="Rs.0">
+                            {{ form.minimum_rate.errors }}
+                        </div>
+                        <div class="form-group-reg form-rate-group">
+                            <label for="rate_hour" class="form-label-bus-reg">Rate Per Km</label>
+                            <input type="text" name="rate_hour" value="{% if form.rate_hour.value %}{{ form.rate_hour.value }}{% endif %}" class="form-control-bus-reg {% if form.rate_hour.errors %} error-input {% endif %}" id="rate_hour" placeholder="Rs.0">
+                            {{ form.rate_hour.errors }}
+                        </div>
+                        <div class="mt-4">
+                            <input type="submit" value="Submit" class="form-control-bus mt-2 col-4">
+                        </div>
+                    </form>
+                    </div>
+                </div>
+   
+    </div>
+
+    {% for i in buses %}
+    <div class="owner-bus-card {% if not i.permitted %} greyed {% endif %}">
+        <p class="basic-p-owner">{{ i.name }}</p>
+        <p class="basic-p-para">Plate No  &nbsp;<b>{{ i.reg_no| upper }}</b></p>
+        <p class="basic-p-para">Permission  &nbsp;<b>{% if i.permitted %} Granted {% else %} Requested {% endif %}</b></p>
+        <p class="basic-p-para">Trips Per Day  &nbsp;<b></b></p>
+        {% if i.capacity %}
+        <p class="basic-p-para">Capacity  &nbsp;<b>{{ i.capacity }}</b></p>
+        {% endif %}
+        {% if i.ksrtc_category %}
+        <p class="basic-p-para">Type  &nbsp;<b>{{ i.get_ksrtc_category_display }}</b></p>
+        {% endif %}
+        <hr>
+        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+        <div class="d-inline-block" >
+        <button class="del-bus" data-id="{{i.id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button> 
+        <a href="/bus/owner/routes/{{ i.id }}/"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        </div>
+        {% if i.permitted %}
+        <div class="text-right d-inline-block" style="vertical-align: -webkit-baseline-middle;">
+        <label class="switch"><input data-id="{{ i.id }}" type="checkbox" {% if i.active %} checked{% endif %}/>    <div></div>
+        </label></div>{% endif %}
+        </div>
+    <!-- <a href="/bus/owner/routes/{{ i.id }}/">{{ i.name }} - {{ i.reg_no }}</a> -->
+    </div>
+
+    {% endfor %}
+            <!-- Button to Open the Modal -->
+    <button class="owner-bus-card-add" data-toggle="modal" data-target="#myModal">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+</div>
+{% endblock %}

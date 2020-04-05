@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <link href="{% static 'accounts/css/style.css' %}"  rel="stylesheet">
+</head>
+<body>
+    <script>
+        $(document).ready(function() {
+            // $("#success-alert").hide();
+                $("#success-alert").fadeTo(5000, 500).fadeOut(500, function() {
+                $("#success-alert").fadeOut(500);
+                });
+                
+                $('.more-menu').click(function(){
+                    $('.nav-ul').toggle()
+                });
+
+        });
+    </script>
+
+    <div class="container mt-5">
+        <header>
+            <nav>
+                <div class="nav-logo">
+                    <span class="iconify bus-ico slideInLeft animated" data-inline="false" data-icon="ps:bus-london" style="color: #245584; font-size: 38px;"></span>
+                    <a href="/" class="heading-main-link"><span class="heading-main">Bus Route</span></a>
+
+                </div>
+                <span class="iconify more-menu" data-inline="false" data-icon="typcn:th-menu" style="font-size: 24px; color: #245584;"></span>
+                <ul class="nav-ul">
+                    {% if not request.user.is_authenticated %}
+                    <li><a href="/accounts/user/login/">login</a></li>
+                    <li><a href="/accounts/user/register/">register</a></li>
+                    {% else %}
+                    <li><a href="#" style="color: #01D28E;">{{ request.user.first_name }}</a></li>
+                    {% if perms.accounts.owner_rights %}
+                    <li><a href="/bus/owner/rent/">rent a bus</a></li>
+                    {% else %}
+                    <li><a href="/bus/user/mytrip/">my trips</a></li>
+                    {% endif %}
+                    <li><a href="/bus/user/emergency/">emergency no.</a></li>
+                    <li><a href="/bus/user/nearest/all/">find nearest</a></li>
+                    <li><a href="/accounts/edit/">edit profile</a></li>
+                    <li><a href="/accounts/logout/">logout</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+        <article>
+
+            {% block content %}
+
+            {% endblock %}
+
+        </article>
+
+        <footer>
+            <div class="row  mt-sm-4 mt-3 pt-sm-5 pt-0 ">
+                <div class="col-sm-10">
+                    <p class="footer-text d-inline-block">Copyright ©2020 All rights reserved</p>
+                </div>
+                <div class="col-sm-2">
+                    <p class="d-inline-block share-icons">
+                        <span class="iconify" data-inline="false" data-icon="ant-design:facebook-outlined"></span>
+                        <span class="iconify" data-inline="false" data-icon="bx:bxl-instagram"></span>
+                        <span class="iconify" data-inline="false" data-icon="feather:twitter"></span>
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        {% if messages %}
+        <div class="bus-alert" id="success-alert">
+            {% for message in messages %}
+            <div class="alert bus-alert-{{ message.tags }} alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{ message.tags | title }}</strong> {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

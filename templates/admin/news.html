@@ -1,0 +1,69 @@
+{% extends "admin/base_site.html" %}
+
+
+{% block content %}
+    <h1>Notifications</h1>
+        
+    <div id="content-main">
+        <div class="module">
+            <table>
+            <caption>
+                <span class="section">Bus Permit Pending Notifications</span>
+            </caption>
+                <tbody>
+                    {% for i in buses %}
+                    <tr>
+                    <th scope="row"><a href="/admin/accounts/useraccounts/{{ i.owner.id }}/change/">{{ i.owner.first_name }} </a> &nbsp;&nbsp;Added a new bus <a href="/admin/bus/busmodel/{{ i.id }}/change/" >{{ i.name}}</a>. Waiting for your permission.</th>
+                    <td><a href="/admin/bus/tripmodel/{{ i.tripmodel_set.all.0.id }}/change/" >Trip detail</a></td>
+                    <td class="grant-bus"><a href="/admin/news/permit/{{ i.id }}/grant/" >Grant</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <th scope="row">No Permit Pending Notifications </th>
+                        </tr>
+                    {% endfor %}
+            </tbody></table>
+        </div>
+
+        <div class="module">
+            <table>
+            <caption>
+                <span class="section">Recent User Registrations </span>
+            </caption>
+                <tbody>
+                    {% for j in users %}
+                    {% if j.is_superuser == False %}
+                    <tr>
+                    <th scope="row"><a href="/admin/accounts/useraccounts/{{ j.id }}/change/">{{ j.first_name }} </a> &nbsp;&nbsp;New {% if j.is_bus_owner %}Bus Owner{% else %}User{% endif %} joined on {{ j.date_joined }}</th>
+                    <td><a href="/admin/accounts/useraccounts/{{ j.id }}/change/">See Profile</a></td>
+                    </tr>
+                    {% endif %}
+                    {% empty %}
+                    <tr>
+                        <th scope="row">No Users </th>
+                        </tr>
+                    {% endfor %}
+            </tbody></table>
+        </div>
+
+        <div class="module">
+            <table>
+            <caption>
+                <span class="section">Recent Bus Registrations</span>
+            </caption>
+                <tbody>
+                    {% for i in all_buses %}
+                    <tr>
+                    <th scope="row"><a href="/admin/bus/busmodel/{{ i.id }}/change/" >{{ i.name}}</a>&nbsp;&nbsp;A new bus added by <a href="/admin/accounts/useraccounts/{{ i.owner.id }}/change/">{{ i.owner.first_name }} </a> on {{ i.created_date }}</th>
+                    <td><a href="/admin/bus/tripmodel/{{ i.tripmodel_set.all.0.id }}/change/" >Trip detail</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <th scope="row">No Buses </th>
+                        </tr>
+                    {% endfor %}
+            </tbody></table>
+        </div>
+    </div>
+{% endblock %}
+    

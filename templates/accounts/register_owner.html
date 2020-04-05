@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+            <div class="register-card mt-4 pt-5 pl-4 pr-4 pl-sm-5">
+                <div>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                    <p class="form-heading-register">Registration for Bus Owner</p>
+                    <div class="form-group-reg">
+                        <label for="email" class="form-label-bus-reg">Email</label>
+                        <input type="email" name="email" value="{% if form.email.value %}{{ form.email.value }}{% endif %}" class="form-control-bus-reg {% if form.email.errors %} error-input {% endif %}" id="email" placeholder="johnsmith@mail.com">
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="form-group-reg">
+                        <label for="phone" class="form-label-bus-reg">Mobile No.</label>
+                        <input type="text" name="phone" value="{% if form.phone.value %}{{ form.phone.value }}{% endif %}" class="form-control-bus-reg {% if form.phone.errors %} error-input {% endif %}" id="phone" placeholder="+9874563210">
+                        {{ form.phone.errors }}
+                    </div>
+                    <div class="form-group-reg">
+                        <label for="firstname" class="form-label-bus-reg">First Name</label>
+                        <input type="text"  value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}" name="first_name" class="form-control-bus-reg {% if form.first_name.errors %} error-input {% endif %}" id="firstname" placeholder="john">
+                        {{ form.first_name.errors }}
+                    </div>
+                    <div class="form-group-reg">
+                        <label for="lastname" class="form-label-bus-reg">Last Name</label>
+                        <input type="text" name="last_name" value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}" class="form-control-bus-reg {% if form.last_name.errors %} error-input {% endif %}" id="lastname" placeholder="smith">
+                        {{ form.last_name.errors }}
+                    </div>
+                    <div class="form-group-reg">
+                        <label for="password1" class="form-label-bus-reg">Password</label>
+                        <input type="password" name="password1" class="form-control-bus-reg {% if form.password1.errors %} error-input {% endif %}" id="password1" placeholder="********">
+                        {{ form.password1.errors }}
+                    </div>
+                    <div class="form-group-reg">
+                        <label for="password2" class="form-label-bus-reg">Confirm Password</label>
+                        <input type="password" name="password2" class="form-control-bus-reg {% if form.password2.errors %} error-input {% endif %}" id="password2" placeholder="********">
+                        {{ form.password2.errors }}
+                    </div>
+                    <div class="mt-4">
+                        <input type="submit" value="Submit" class="form-control-bus mt-2 col-4">
+                    </div>
+                </form>
+                </div>
+            </div>
+        {% endblock %}

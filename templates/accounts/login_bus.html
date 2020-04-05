@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+            <div class="register-card bus-login-card mt-4 pt-5 pl-4 pr-4 pl-sm-5">
+                <div>
+                    <form action="" method="POST">
+                    {% csrf_token %}
+                    <p class="form-heading-register">Login as Bus Owner</p>
+                    <div class="form-group-reg">
+                        <label for="email" class="form-label-bus-reg">Email</label>
+                        <input type="email" name="email" class="form-control-bus-reg {% if login_error_msg %} error-input {% endif %}" id="email" placeholder="johnsmith">
+                    </div>
+                    <div class="form-group-reg">
+                        <label for="password" class="form-label-bus-reg">Password</label>
+                        <input type="password" name="password" class="form-control-bus-reg {% if login_error_msg %} error-input {% endif %}" id="password" placeholder="********">
+                        <p class="errorlist">{{ login_error_msg }}</p>
+                    </div>
+                    <div class="mt-4">
+                        <input type="submit" value="Login" class="form-control-bus mt-2 col-4">
+                    </div>
+                </form>
+                </div>
+            </div>
+
+{% endblock %}
